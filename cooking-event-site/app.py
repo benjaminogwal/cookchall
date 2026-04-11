@@ -78,9 +78,9 @@ COUNTRY_DETAILS = {
     "Germany": {
         "flag": "🇩🇪",
         "spotlight": "Schnitzel",
-        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Schnitzel.JPG",
-        "image_source": "https://commons.wikimedia.org/wiki/File:Schnitzel.JPG",
-        "image_credit": "Eikus89 / Wikimedia Commons",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Iranian%20schnitzel.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Iranian_schnitzel.jpg",
+        "image_credit": "Guywithacoolname / Wikimedia Commons",
         "image_alt": "Schnitzel served with fries and lemon",
     },
     "Uganda": {
