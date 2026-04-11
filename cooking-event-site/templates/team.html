@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel team-hero">
+    <div>
+        <p class="eyebrow">Team space</p>
+        <h1>Team {{ country }}</h1>
+        <p class="hero-copy">
+            Everyone here selected {{ country }}. Use this list to organize who is preparing what.
+        </p>
+    </div>
+    <a class="secondary-button" href="{{ url_for('index') }}">Register another person</a>
+</section>
+
+<section class="content-grid">
+    <article class="panel">
+        <div class="section-heading">
+            <p class="eyebrow">Members</p>
+            <h2>{{ members | length }} teammate{% if members|length != 1 %}s{% endif %}</h2>
+        </div>
+        <ul class="team-list">
+            {% for member in members %}
+                <li class="team-list-item{% if member.name == participant_name %} current-member{% endif %}">
+                    <div>
+                        <strong>{{ member.name }}</strong>
+                        <span>{{ member.dish }}</span>
+                    </div>
+                    {% if member.name == participant_name %}
+                        <span class="member-tag">You</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </article>
+
+    <article class="panel">
+        <div class="section-heading">
+            <p class="eyebrow">Dish shortlist</p>
+            <h2>{{ country }} menu ideas</h2>
+        </div>
+        <ul class="plain-list">
+            {% for dish in dishes %}
+                <li>{{ dish }}</li>
+            {% endfor %}
+        </ul>
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero panel">
+    <div>
+        <p class="eyebrow">Global food, shared teams</p>
+        <h1>Join a country team and claim a dish for the competition.</h1>
+        <p class="hero-copy">
+            Participants representing the same country are grouped together, so each team can coordinate dishes before event day.
+        </p>
+    </div>
+    <div class="hero-badge">
+        <span>6 countries</span>
+        <strong>1 cultural cook-off</strong>
+    </div>
+</section>
+
+<section class="country-grid">
+    {% for country, count in country_counts.items() %}
+        <article class="country-card panel">
+            <span class="country-name">{{ country }}</span>
+            <strong>{{ count }}</strong>
+            <span class="country-meta">registered so far</span>
+        </article>
+    {% endfor %}
+</section>
+
+<section class="content-grid">
+    <form class="panel registration-form" method="post" action="{{ url_for('register') }}" data-country-dishes='{{ country_dishes | tojson }}'>
+        <div class="section-heading">
+            <p class="eyebrow">Registration</p>
+            <h2>Pick your country and dish</h2>
+        </div>
+
+        <ul class="quick-steps" aria-label="Registration steps">
+            <li>
+                <span>1</span>
+                <div>
+                    <strong>Choose a country</strong>
+                    <small>Join the team you want to represent.</small>
+                </div>
+            </li>
+            <li>
+                <span>2</span>
+                <div>
+                    <strong>Select a dish</strong>
+                    <small>Pick from the shortlist for that country.</small>
+                </div>
+            </li>
+            <li>
+                <span>3</span>
+                <div>
+                    <strong>Meet your teammates</strong>
+                    <small>See who else picked the same country.</small>
+                </div>
+            </li>
+        </ul>
+
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" maxlength="80" placeholder="Enter your full name" autocomplete="name" required>
+
+        <label for="country">Country to represent</label>
+        <select id="country" name="country" required>
+            <option value="">Choose a country</option>
+            {% for country in country_dishes %}
+                <option value="{{ country }}">{{ country }}</option>
+            {% endfor %}
+        </select>
+        <p class="field-hint">Anyone who picks the same country will appear on the same team page.</p>
+
+        <label for="dish">Dish to prepare</label>
+        <select id="dish" name="dish" disabled required>
+            <option value="">Select a country first</option>
+        </select>
+
+        <button class="primary-button" type="submit">Join the competition</button>
+    </form>
+
+    <aside class="panel info-panel">
+        <div class="section-heading">
+            <p class="eyebrow">Country board</p>
+            <h2 id="board-title">Choose a country to see dishes and teammates</h2>
+        </div>
+
+        <div class="info-block">
+            <h3>Dish options</h3>
+            <ul id="dish-list" class="plain-list empty-state">
+                <li>Select a country to reveal its dish shortlist.</li>
+            </ul>
+        </div>
+
+        <div class="info-block">
+            <h3>Current teammates</h3>
+            <ul id="member-list" class="plain-list empty-state" aria-live="polite">
+                <li>No country selected yet.</li>
+            </ul>
+        </div>
+    </aside>
+</section>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}

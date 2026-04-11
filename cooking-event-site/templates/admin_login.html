@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel auth-panel">
+    <div class="section-heading">
+        <p class="eyebrow">Organizer access</p>
+        <h1>Open the private dashboard</h1>
+    </div>
+    <p class="hero-copy">
+        This page is for the organizer only. The registration database stays on the server and is not exposed to participants.
+    </p>
+    {% if using_default_password %}
+        <p class="warning-text">
+            The app is still using the default organizer password. Set <code>EVENT_ADMIN_PASSWORD</code> before sharing the site.
+        </p>
+    {% endif %}
+    <form class="stack-form" method="post">
+        <label for="password">Organizer password</label>
+        <input id="password" name="password" type="password" required>
+        <button class="primary-button" type="submit">Enter dashboard</button>
+    </form>
+</section>
+{% endblock %}

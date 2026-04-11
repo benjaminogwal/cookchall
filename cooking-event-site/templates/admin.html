@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel team-hero">
+    <div>
+        <p class="eyebrow">Organizer dashboard</p>
+        <h1>Registration database</h1>
+        <p class="hero-copy">
+            Review every participant, see country totals, and export the event roster as CSV.
+        </p>
+    </div>
+    <div class="admin-actions">
+        <a class="secondary-button" href="{{ url_for('admin_export') }}">Export CSV</a>
+        <a class="secondary-button" href="{{ url_for('admin_logout') }}">Log out</a>
+    </div>
+</section>
+
+<section class="country-grid">
+    {% for country, count in country_counts.items() %}
+        <article class="country-card panel compact">
+            <span class="country-name">{{ country }}</span>
+            <strong>{{ count }}</strong>
+            <span class="country-meta">participants</span>
+        </article>
+    {% endfor %}
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <p class="eyebrow">All entries</p>
+        <h2>{{ registrations | length }} total registration{% if registrations|length != 1 %}s{% endif %}</h2>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Dish</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registration in registrations %}
+                    <tr>
+                        <td data-label="Name">{{ registration.name }}</td>
+                        <td data-label="Country">{{ registration.country }}</td>
+                        <td data-label="Dish">{{ registration.dish }}</td>
+                        <td data-label="Created At">{{ registration.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
