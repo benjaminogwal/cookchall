@@ -12,6 +12,24 @@ if (form) {
     const previewCopy = document.getElementById("preview-copy");
     const countrySpotlight = document.getElementById("country-spotlight");
     const countryPreview = document.getElementById("country-preview");
+    const countryPreviewMedia = document.getElementById("country-preview-media");
+
+    const hidePreviewImage = () => {
+        countryPreview.classList.remove("has-image");
+        countryPreviewMedia.setAttribute("aria-hidden", "true");
+        countryImage.removeAttribute("src");
+        countryImage.alt = "";
+    };
+
+    countryImage.addEventListener("load", () => {
+        countryPreview.classList.add("has-image");
+        countryPreviewMedia.setAttribute("aria-hidden", "false");
+    });
+
+    countryImage.addEventListener("error", () => {
+        hidePreviewImage();
+        previewCopy.textContent = "Image preview unavailable right now, but the team board and dish list still work.";
+    });
 
     const setDishOptions = (country) => {
         const dishes = country ? countryDetails[country].dishes : [];
@@ -58,9 +76,7 @@ if (form) {
     const renderPreview = (country) => {
         if (!country) {
             countryPreview.classList.add("empty-state");
-            countryImage.hidden = true;
-            countryImage.src = "";
-            countryImage.alt = "";
+            hidePreviewImage();
             countrySpotlight.textContent = "Featured Dish";
             previewTitle.textContent = "Pick a country to preview the team style";
             previewCopy.textContent = "You will see the flag, featured dish, and who has already joined.";
@@ -69,7 +85,7 @@ if (form) {
 
         const details = countryDetails[country];
         countryPreview.classList.remove("empty-state");
-        countryImage.hidden = false;
+        hidePreviewImage();
         countryImage.src = details.image_url;
         countryImage.alt = details.image_alt;
         countrySpotlight.textContent = `${details.flag} Featured Dish`;

@@ -327,7 +327,7 @@ h3 {
 
 .country-preview {
     display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
     align-items: center;
     margin-bottom: 1.2rem;
@@ -335,6 +335,18 @@ h3 {
     border-radius: 22px;
     background: rgba(255, 247, 237, 0.86);
     border: 1px solid rgba(181, 63, 29, 0.12);
+}
+
+.country-preview.has-image {
+    grid-template-columns: 112px minmax(0, 1fr);
+}
+
+.country-preview-media {
+    display: none;
+}
+
+.country-preview.has-image .country-preview-media {
+    display: block;
 }
 
 .country-preview img {
