@@ -72,8 +72,20 @@ if (form) {
             image.alt = dish.image_alt;
             image.loading = "lazy";
             image.className = "dish-card-image";
+            image.dataset.fallbackUrl = dish.fallback_image_url || "";
+            image.dataset.fallbackAlt = dish.fallback_image_alt || "";
+            image.addEventListener("load", () => {
+                image.classList.remove("is-hidden");
+                button.classList.remove("no-image");
+            });
             image.addEventListener("error", () => {
+                if (image.dataset.fallbackUrl && image.src !== image.dataset.fallbackUrl) {
+                    image.src = image.dataset.fallbackUrl;
+                    image.alt = image.dataset.fallbackAlt || `${country} featured dish`;
+                    return;
+                }
                 image.classList.add("is-hidden");
+                button.classList.add("no-image");
             });
 
             const labelWrap = document.createElement("div");

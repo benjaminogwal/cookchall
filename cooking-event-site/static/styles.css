@@ -381,6 +381,10 @@ h3 {
     background: rgba(255, 244, 234, 0.94);
 }
 
+.dish-card.no-image {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 .dish-card-image {
     width: 88px;
     height: 72px;

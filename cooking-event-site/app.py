@@ -123,6 +123,177 @@ COUNTRY_DETAILS = {
     },
 }
 
+DISH_DETAILS = {
+    "Nyama Choma": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyama%20Choma.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Nyama_Choma.jpg",
+        "image_credit": "Samuel Kiongo / Wikimedia Commons",
+        "image_alt": "Nyama choma grilling over charcoal",
+    },
+    "Githeri": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Githeri.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Githeri.jpg",
+        "image_credit": "Mukuba / Wikimedia Commons",
+        "image_alt": "A bowl of Kenyan githeri made from maize and beans",
+    },
+    "Sukuma Wiki": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sukuma%20wiki.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Sukuma_wiki.jpg",
+        "image_credit": "Valerie Aloo / Wikimedia Commons",
+        "image_alt": "Sukuma wiki leafy greens prepared for cooking",
+    },
+    "Mukimo": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mukimo%20mix.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Mukimo_mix.jpg",
+        "image_credit": "Jaymuiaphotography / Wikimedia Commons",
+        "image_alt": "Mukimo, a mashed Kenyan potato and greens dish",
+    },
+    "Kenyan Pilau": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Food%20Kenya%20Pilau.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Food_Kenya_Pilau.jpg",
+        "image_credit": "Cmwaura / Wikimedia Commons",
+        "image_alt": "Kenyan pilau rice with meat",
+    },
+    "Sauerbraten": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sauerbraten.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Sauerbraten.jpg",
+        "image_credit": "Johann H. Addicks / Wikimedia Commons",
+        "image_alt": "A plated serving of German sauerbraten",
+    },
+    "Schnitzel": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Schnitzel.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Schnitzel.JPG",
+        "image_credit": "Eikus89 / Wikimedia Commons",
+        "image_alt": "Schnitzel served with fries and lemon",
+    },
+    "Kaesespaetzle": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%A4sesp%C3%A4tzle.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:K%C3%A4sesp%C3%A4tzle.jpg",
+        "image_credit": "Wiki der Wikinger / Wikimedia Commons",
+        "image_alt": "Kasespaetzle with onions and salad",
+    },
+    "Bratwurst and Sauerkraut": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bratwurst.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Bratwurst.jpg",
+        "image_credit": "Wikimedia Commons",
+        "image_alt": "Bratwurst served with cabbage and potatoes",
+    },
+    "Kartoffelpuffer": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kartoffelpuffer.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Kartoffelpuffer.jpg",
+        "image_credit": "Clemens Pfeiffer / Wikimedia Commons",
+        "image_alt": "Kartoffelpuffer potato pancakes",
+    },
+    "Luwombo": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20Ugandan%20Luwombo.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Traditional_Ugandan_Luwombo.jpg",
+        "image_credit": "Nabunje Leticia / Wikimedia Commons",
+        "image_alt": "Traditional Ugandan luwombo wrapped in banana leaves",
+    },
+    "Rolex": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ROLEX2.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:ROLEX2.jpg",
+        "image_credit": "Wikimedia Commons",
+        "image_alt": "Ugandan rolex street food wrapped in chapati",
+    },
+    "Matoke": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matoke.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Matoke.JPG",
+        "image_credit": "Wikistallion / Wikimedia Commons",
+        "image_alt": "Matoke cooking bananas ready to be served",
+    },
+    "Groundnut Stew": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Groundnut%20Soup.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Groundnut_Soup.JPG",
+        "image_credit": "Blackmapapa / Wikimedia Commons",
+        "image_alt": "Groundnut stew in a bowl",
+    },
+    "Posho and Beans": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Africa%20ugali%20and%20beans.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Africa_ugali_and_beans.jpg",
+        "image_credit": "Moseslukyamuzi / Wikimedia Commons",
+        "image_alt": "Posho and beans served on a plate",
+    },
+    "Jollof Rice": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/JOLLOF%20RICE.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:JOLLOF_RICE.JPG",
+        "image_credit": "Ask4ugo / Wikimedia Commons",
+        "image_alt": "A plate of Nigerian jollof rice",
+    },
+    "Egusi Soup": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Egusi%20Soup.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Egusi_Soup.jpg",
+        "image_credit": "AkinkuotuFunmi / Wikimedia Commons",
+        "image_alt": "Egusi soup in a serving bowl",
+    },
+    "Suya": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Suya.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Suya.jpg",
+        "image_credit": "olaoluwapemi ogunmola / Wikimedia Commons",
+        "image_alt": "Nigerian suya grilled meat",
+    },
+    "Pounded Yam and Ogbono Soup": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ogbono%20Soup.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Ogbono_Soup.jpg",
+        "image_credit": "Aderiqueza / Wikimedia Commons",
+        "image_alt": "Ogbono soup served as a Nigerian swallow dish accompaniment",
+    },
+    "Moi Moi": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Moi%20moi.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Moi_moi.jpg",
+        "image_credit": "Daniel Paullll / Wikimedia Commons",
+        "image_alt": "Moi moi steamed bean pudding",
+    },
+    "Ndole": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/PLAT%20DE%20NDOLE.png",
+        "image_source": "https://commons.wikimedia.org/wiki/File:PLAT_DE_NDOLE.png",
+        "image_credit": "Destiny DEFFO / Wikimedia Commons",
+        "image_alt": "A Cameroonian plate of ndole",
+    },
+    "Eru": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Eru%20Soup.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Eru_Soup.jpg",
+        "image_credit": "Aderiqueza / Wikimedia Commons",
+        "image_alt": "Eru soup from Cameroon",
+    },
+    "Koki Beans": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Koki%20Beans.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Koki_Beans.jpg",
+        "image_credit": "Adesolive / Wikimedia Commons",
+        "image_alt": "Cameroonian koki beans with plantain",
+    },
+    "Poulet DG": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Poulet%20DG.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Poulet_DG.JPG",
+        "image_credit": "Affirebecca / Wikimedia Commons",
+        "image_alt": "Cameroonian poulet DG with plantain",
+    },
+    "Achu Soup": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Achu%20meal.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Achu_meal.jpg",
+        "image_credit": "Adesolive / Wikimedia Commons",
+        "image_alt": "Achu with yellow soup from Cameroon",
+    },
+    "Sadza with Beef Stew": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/White%20sadza%20and%20beef%20stew.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:White_sadza_and_beef_stew.jpg",
+        "image_credit": "Shark2025 / Wikimedia Commons",
+        "image_alt": "White sadza served with beef stew",
+    },
+    "Dovi": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Peanut%20butter%20%28dovi%29.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Peanut_butter_(dovi).jpg",
+        "image_credit": "Shark2025 / Wikimedia Commons",
+        "image_alt": "Peanut butter prepared for dovi in Zimbabwe",
+    },
+    "Mazondo": {
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cow%27s%20trotters%20%28mazondo%29.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Cow%27s_trotters_(mazondo).jpg",
+        "image_credit": "Solly Wolf / Wikimedia Commons",
+        "image_alt": "Cow's trotters prepared for mazondo",
+    },
+}
+
 ORGANIZER = {
     "name": "Campus Connect Vibes Team",
     "strapline": "Campus Connect cultural cook-off organizer",
@@ -171,18 +342,23 @@ def format_timestamp(value):
     return str(value)
 
 
+def build_dish_card(country, dish):
+    country_details = COUNTRY_DETAILS[country]
+    dish_details = DISH_DETAILS.get(dish, {})
+    return {
+        "name": dish,
+        "image_url": dish_details.get("image_url", country_details["image_url"]),
+        "image_alt": dish_details.get("image_alt", f"{dish} from {country}"),
+        "fallback_image_url": country_details["image_url"],
+        "fallback_image_alt": country_details["image_alt"],
+    }
+
+
 def build_country_data():
     return {
         country: {
             **COUNTRY_DETAILS[country],
-            "dishes": [
-                {
-                    "name": dish,
-                    "image_url": COUNTRY_DETAILS[country]["image_url"],
-                    "image_alt": f"{dish} from {country}",
-                }
-                for dish in dishes
-            ],
+            "dishes": [build_dish_card(country, dish) for dish in dishes],
         }
         for country, dishes in COUNTRY_DISHES.items()
     }
