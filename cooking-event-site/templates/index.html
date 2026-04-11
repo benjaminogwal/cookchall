@@ -40,14 +40,15 @@
             <div class="country-card-media">
                 <img src="{{ details.image_url }}" alt="{{ details.image_alt }}" loading="lazy">
                 <div class="country-card-overlay">
-                    <span class="flag-badge">{{ details.flag }}</span>
+                    <span class="flag-badge">
+                        <img src="{{ details.flag_url }}" alt="{{ details.flag_alt }}" loading="lazy">
+                    </span>
                     <span class="country-count">{{ country_counts[country] }}</span>
                 </div>
             </div>
             <div class="country-card-body">
                 <span class="country-name">{{ country }}</span>
-                <strong>{{ details.spotlight }}</strong>
-                <span class="country-meta">featured team dish</span>
+                <span class="country-meta">{{ country_counts[country] }} registered so far</span>
             </div>
         </article>
     {% endfor %}
@@ -96,10 +97,17 @@
         </select>
         <p class="field-hint">Anyone who picks the same country will appear on the same team page.</p>
 
-        <label for="dish">Dish to prepare</label>
-        <select id="dish" name="dish" disabled required>
-            <option value="">Select a country first</option>
-        </select>
+        <div class="dish-picker-section">
+            <div class="dish-picker-head">
+                <label for="dish">Dish to prepare</label>
+                <p class="field-hint">Tap a food card to choose what your team will prepare.</p>
+            </div>
+            <input id="dish" name="dish" type="hidden" value="">
+            <div id="dish-picker" class="dish-picker empty-state" aria-live="polite">
+                <p class="dish-picker-empty">Select a country first to load the dish choices.</p>
+            </div>
+            <p class="field-error" id="dish-error" hidden>Please choose one dish before joining the competition.</p>
+        </div>
 
         <button class="primary-button" type="submit">Join the competition</button>
     </form>
@@ -119,13 +127,6 @@
                 <h3 id="preview-title">Pick a country to preview the team style</h3>
                 <p id="preview-copy" class="country-meta">You will see the flag, featured dish, and who has already joined.</p>
             </div>
-        </div>
-
-        <div class="info-block">
-            <h3>Dish options</h3>
-            <ul id="dish-list" class="plain-list empty-state">
-                <li>Select a country to reveal its dish shortlist.</li>
-            </ul>
         </div>
 
         <div class="info-block">

@@ -68,7 +68,8 @@ COUNTRY_DISHES = {
 
 COUNTRY_DETAILS = {
     "Kenya": {
-        "flag": "🇰🇪",
+        "flag_url": "https://flagcdn.com/ke.svg",
+        "flag_alt": "Flag of Kenya",
         "spotlight": "Nyama Choma",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyama%20Choma.jpg",
         "image_source": "https://commons.wikimedia.org/wiki/File:Nyama_Choma.jpg",
@@ -76,7 +77,8 @@ COUNTRY_DETAILS = {
         "image_alt": "Nyama choma grilling over charcoal",
     },
     "Germany": {
-        "flag": "🇩🇪",
+        "flag_url": "https://flagcdn.com/de.svg",
+        "flag_alt": "Flag of Germany",
         "spotlight": "Schnitzel",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Iranian%20schnitzel.jpg",
         "image_source": "https://commons.wikimedia.org/wiki/File:Iranian_schnitzel.jpg",
@@ -84,7 +86,8 @@ COUNTRY_DETAILS = {
         "image_alt": "Schnitzel served with fries and lemon",
     },
     "Uganda": {
-        "flag": "🇺🇬",
+        "flag_url": "https://flagcdn.com/ug.svg",
+        "flag_alt": "Flag of Uganda",
         "spotlight": "Luwombo",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20Ugandan%20Luwombo.jpg",
         "image_source": "https://commons.wikimedia.org/wiki/File:Traditional_Ugandan_Luwombo.jpg",
@@ -92,7 +95,8 @@ COUNTRY_DETAILS = {
         "image_alt": "Traditional Ugandan luwombo wrapped in banana leaves",
     },
     "Nigeria": {
-        "flag": "🇳🇬",
+        "flag_url": "https://flagcdn.com/ng.svg",
+        "flag_alt": "Flag of Nigeria",
         "spotlight": "Jollof Rice",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jollof%20Rice.jpg",
         "image_source": "https://commons.wikimedia.org/wiki/File:Jollof_Rice.jpg",
@@ -100,7 +104,8 @@ COUNTRY_DETAILS = {
         "image_alt": "A plate of Nigerian jollof rice",
     },
     "Cameroon": {
-        "flag": "🇨🇲",
+        "flag_url": "https://flagcdn.com/cm.svg",
+        "flag_alt": "Flag of Cameroon",
         "spotlight": "Poulet DG",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Poulet%20DG.JPG",
         "image_source": "https://commons.wikimedia.org/wiki/File:Poulet_DG.JPG",
@@ -108,7 +113,8 @@ COUNTRY_DETAILS = {
         "image_alt": "Cameroonian poulet DG with plantain",
     },
     "Zimbabwe": {
-        "flag": "🇿🇼",
+        "flag_url": "https://flagcdn.com/zw.svg",
+        "flag_alt": "Flag of Zimbabwe",
         "spotlight": "Sadza with Beef Stew",
         "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/A%20plate%20of%20sadza.jpg",
         "image_source": "https://commons.wikimedia.org/wiki/File:A_plate_of_sadza.jpg",
@@ -169,7 +175,14 @@ def build_country_data():
     return {
         country: {
             **COUNTRY_DETAILS[country],
-            "dishes": dishes,
+            "dishes": [
+                {
+                    "name": dish,
+                    "image_url": COUNTRY_DETAILS[country]["image_url"],
+                    "image_alt": f"{dish} from {country}",
+                }
+                for dish in dishes
+            ],
         }
         for country, dishes in COUNTRY_DISHES.items()
     }
@@ -349,7 +362,8 @@ def create_app(test_config=None):
                 "country": country,
                 "count": len(members),
                 "dishes": COUNTRY_DISHES[country],
-                "flag": country_data[country]["flag"],
+                "flag_url": country_data[country]["flag_url"],
+                "flag_alt": country_data[country]["flag_alt"],
                 "image_url": country_data[country]["image_url"],
                 "image_alt": country_data[country]["image_alt"],
                 "spotlight": country_data[country]["spotlight"],

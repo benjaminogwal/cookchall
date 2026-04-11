@@ -4,7 +4,10 @@
 <section class="panel team-hero">
     <div>
         <p class="eyebrow">Team space</p>
-        <h1>{{ country_meta.flag }} Team {{ country }}</h1>
+        <h1 class="team-title">
+            <img class="inline-flag" src="{{ country_meta.flag_url }}" alt="{{ country_meta.flag_alt }}" loading="lazy">
+            <span>Team {{ country }}</span>
+        </h1>
         <p class="hero-copy">
             Everyone here selected {{ country }}. Use this list to organize who is preparing what.
         </p>

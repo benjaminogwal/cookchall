@@ -4,7 +4,8 @@ if (form) {
     const countryDetails = JSON.parse(form.dataset.countryDetails);
     const countryField = document.getElementById("country");
     const dishField = document.getElementById("dish");
-    const dishList = document.getElementById("dish-list");
+    const dishPicker = document.getElementById("dish-picker");
+    const dishError = document.getElementById("dish-error");
     const memberList = document.getElementById("member-list");
     const boardTitle = document.getElementById("board-title");
     const countryImage = document.getElementById("country-image");
@@ -21,6 +22,10 @@ if (form) {
         countryImage.alt = "";
     };
 
+    const clearDishError = () => {
+        dishError.hidden = true;
+    };
+
     countryImage.addEventListener("load", () => {
         countryPreview.classList.add("has-image");
         countryPreviewMedia.setAttribute("aria-hidden", "false");
@@ -31,45 +36,61 @@ if (form) {
         previewCopy.textContent = "Image preview unavailable right now, but the team board and dish list still work.";
     });
 
-    const setDishOptions = (country) => {
-        const dishes = country ? countryDetails[country].dishes : [];
-        dishField.innerHTML = "";
-
-        if (!country) {
-            dishField.disabled = true;
-            dishField.innerHTML = '<option value="">Select a country first</option>';
-            return;
-        }
-
-        dishField.disabled = false;
-        const placeholder = document.createElement("option");
-        placeholder.value = "";
-        placeholder.textContent = "Choose your dish";
-        dishField.appendChild(placeholder);
-
-        dishes.forEach((dish) => {
-            const option = document.createElement("option");
-            option.value = dish;
-            option.textContent = dish;
-            dishField.appendChild(option);
+    const selectDish = (dishName) => {
+        dishField.value = dishName;
+        clearDishError();
+        dishPicker.querySelectorAll(".dish-card").forEach((card) => {
+            card.classList.toggle("is-selected", card.dataset.dishName === dishName);
+            card.setAttribute(
+                "aria-pressed",
+                String(card.dataset.dishName === dishName)
+            );
         });
     };
 
-    const renderDishList = (country) => {
+    const renderDishPicker = (country) => {
         const dishes = country ? countryDetails[country].dishes : [];
-        dishList.innerHTML = "";
+        dishField.value = "";
+        dishPicker.innerHTML = "";
 
         if (!country) {
-            dishList.classList.add("empty-state");
-            dishList.innerHTML = "<li>Select a country to reveal its dish shortlist.</li>";
+            dishPicker.classList.add("empty-state");
+            dishPicker.innerHTML = '<p class="dish-picker-empty">Select a country first to load the dish choices.</p>';
             return;
         }
 
-        dishList.classList.remove("empty-state");
+        dishPicker.classList.remove("empty-state");
         dishes.forEach((dish) => {
-            const item = document.createElement("li");
-            item.textContent = dish;
-            dishList.appendChild(item);
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "dish-card";
+            button.dataset.dishName = dish.name;
+            button.setAttribute("aria-pressed", "false");
+
+            const image = document.createElement("img");
+            image.src = dish.image_url;
+            image.alt = dish.image_alt;
+            image.loading = "lazy";
+            image.className = "dish-card-image";
+            image.addEventListener("error", () => {
+                image.classList.add("is-hidden");
+            });
+
+            const labelWrap = document.createElement("div");
+            labelWrap.className = "dish-card-copy";
+
+            const title = document.createElement("strong");
+            title.textContent = dish.name;
+
+            const meta = document.createElement("span");
+            meta.textContent = `${country} team option`;
+
+            labelWrap.appendChild(title);
+            labelWrap.appendChild(meta);
+            button.appendChild(image);
+            button.appendChild(labelWrap);
+            button.addEventListener("click", () => selectDish(dish.name));
+            dishPicker.appendChild(button);
         });
     };
 
@@ -88,7 +109,7 @@ if (form) {
         hidePreviewImage();
         countryImage.src = details.image_url;
         countryImage.alt = details.image_alt;
-        countrySpotlight.textContent = `${details.flag} Featured Dish`;
+        countrySpotlight.textContent = "Featured Dish";
         previewTitle.textContent = `${country} spotlight: ${details.spotlight}`;
         previewCopy.textContent = "Choose this country to join the shared team board and coordinate dishes together.";
     };
@@ -117,7 +138,7 @@ if (form) {
         }
 
         const data = await response.json();
-        boardTitle.textContent = `${data.flag} ${country} team board`;
+        boardTitle.textContent = `${country} team board`;
 
         if (!data.members.length) {
             memberList.classList.add("empty-state");
@@ -145,11 +166,18 @@ if (form) {
 
     countryField.addEventListener("change", async (event) => {
         const country = event.target.value;
-        const flag = country ? countryDetails[country].flag : "";
-        boardTitle.textContent = country ? `${flag} ${country} team board` : "Choose a country to see dishes and teammates";
-        setDishOptions(country);
-        renderDishList(country);
+        boardTitle.textContent = country ? `${country} team board` : "Choose a country to see dishes and teammates";
+        clearDishError();
+        renderDishPicker(country);
         renderPreview(country);
         await renderMembers(country);
+    });
+
+    form.addEventListener("submit", (event) => {
+        if (!dishField.value) {
+            event.preventDefault();
+            dishError.hidden = false;
+            dishPicker.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
     });
 }
