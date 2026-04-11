@@ -1,15 +1,20 @@
 const form = document.querySelector(".registration-form");
 
 if (form) {
-    const countryDishes = JSON.parse(form.dataset.countryDishes);
+    const countryDetails = JSON.parse(form.dataset.countryDetails);
     const countryField = document.getElementById("country");
     const dishField = document.getElementById("dish");
     const dishList = document.getElementById("dish-list");
     const memberList = document.getElementById("member-list");
     const boardTitle = document.getElementById("board-title");
+    const countryImage = document.getElementById("country-image");
+    const previewTitle = document.getElementById("preview-title");
+    const previewCopy = document.getElementById("preview-copy");
+    const countrySpotlight = document.getElementById("country-spotlight");
+    const countryPreview = document.getElementById("country-preview");
 
     const setDishOptions = (country) => {
-        const dishes = countryDishes[country] || [];
+        const dishes = country ? countryDetails[country].dishes : [];
         dishField.innerHTML = "";
 
         if (!country) {
@@ -33,7 +38,7 @@ if (form) {
     };
 
     const renderDishList = (country) => {
-        const dishes = countryDishes[country] || [];
+        const dishes = country ? countryDetails[country].dishes : [];
         dishList.innerHTML = "";
 
         if (!country) {
@@ -48,6 +53,28 @@ if (form) {
             item.textContent = dish;
             dishList.appendChild(item);
         });
+    };
+
+    const renderPreview = (country) => {
+        if (!country) {
+            countryPreview.classList.add("empty-state");
+            countryImage.hidden = true;
+            countryImage.src = "";
+            countryImage.alt = "";
+            countrySpotlight.textContent = "Featured Dish";
+            previewTitle.textContent = "Pick a country to preview the team style";
+            previewCopy.textContent = "You will see the flag, featured dish, and who has already joined.";
+            return;
+        }
+
+        const details = countryDetails[country];
+        countryPreview.classList.remove("empty-state");
+        countryImage.hidden = false;
+        countryImage.src = details.image_url;
+        countryImage.alt = details.image_alt;
+        countrySpotlight.textContent = `${details.flag} Featured Dish`;
+        previewTitle.textContent = `${country} spotlight: ${details.spotlight}`;
+        previewCopy.textContent = "Choose this country to join the shared team board and coordinate dishes together.";
     };
 
     const renderMembers = async (country) => {
@@ -74,7 +101,7 @@ if (form) {
         }
 
         const data = await response.json();
-        boardTitle.textContent = `${country} team board`;
+        boardTitle.textContent = `${data.flag} ${country} team board`;
 
         if (!data.members.length) {
             memberList.classList.add("empty-state");
@@ -102,9 +129,11 @@ if (form) {
 
     countryField.addEventListener("change", async (event) => {
         const country = event.target.value;
-        boardTitle.textContent = country ? `${country} team board` : "Choose a country to see dishes and teammates";
+        const flag = country ? countryDetails[country].flag : "";
+        boardTitle.textContent = country ? `${flag} ${country} team board` : "Choose a country to see dishes and teammates";
         setDishOptions(country);
         renderDishList(country);
+        renderPreview(country);
         await renderMembers(country);
     });
 }

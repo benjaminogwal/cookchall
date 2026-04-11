@@ -4,12 +4,15 @@
 <section class="panel team-hero">
     <div>
         <p class="eyebrow">Team space</p>
-        <h1>Team {{ country }}</h1>
+        <h1>{{ country_meta.flag }} Team {{ country }}</h1>
         <p class="hero-copy">
             Everyone here selected {{ country }}. Use this list to organize who is preparing what.
         </p>
     </div>
-    <a class="secondary-button" href="{{ url_for('index') }}">Register another person</a>
+    <div class="team-hero-visual">
+        <img src="{{ country_meta.image_url }}" alt="{{ country_meta.image_alt }}" loading="lazy">
+        <a class="secondary-button" href="{{ url_for('index') }}">Register another person</a>
+    </div>
 </section>
 
 <section class="content-grid">

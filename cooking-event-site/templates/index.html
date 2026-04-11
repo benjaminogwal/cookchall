@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
+<section class="organizer-panel panel">
+    <div class="organizer-lockup">
+        <img
+            class="organizer-logo"
+            src="{{ url_for('static', filename='campus-connect-vibes.svg') }}"
+            alt="{{ organizer.name }} logo"
+        >
+        <div>
+            <p class="eyebrow">Organized By</p>
+            <h2>{{ organizer.name }}</h2>
+            <p class="hero-copy">{{ organizer.message }}</p>
+        </div>
+    </div>
+    <div class="organizer-note">
+        <span>Campus Connect vibes</span>
+        <strong>Food, culture, teamwork</strong>
+    </div>
+</section>
+
 <section class="hero panel">
     <div>
         <p class="eyebrow">Global food, shared teams</p>
@@ -11,22 +30,31 @@
     </div>
     <div class="hero-badge">
         <span>6 countries</span>
-        <strong>1 cultural cook-off</strong>
+        <strong>1 Campus Connect cook-off</strong>
     </div>
 </section>
 
 <section class="country-grid">
-    {% for country, count in country_counts.items() %}
+    {% for country, details in country_data.items() %}
         <article class="country-card panel">
-            <span class="country-name">{{ country }}</span>
-            <strong>{{ count }}</strong>
-            <span class="country-meta">registered so far</span>
+            <div class="country-card-media">
+                <img src="{{ details.image_url }}" alt="{{ details.image_alt }}" loading="lazy">
+                <div class="country-card-overlay">
+                    <span class="flag-badge">{{ details.flag }}</span>
+                    <span class="country-count">{{ country_counts[country] }}</span>
+                </div>
+            </div>
+            <div class="country-card-body">
+                <span class="country-name">{{ country }}</span>
+                <strong>{{ details.spotlight }}</strong>
+                <span class="country-meta">featured team dish</span>
+            </div>
         </article>
     {% endfor %}
 </section>
 
 <section class="content-grid">
-    <form class="panel registration-form" method="post" action="{{ url_for('register') }}" data-country-dishes='{{ country_dishes | tojson }}'>
+    <form class="panel registration-form" method="post" action="{{ url_for('register') }}" data-country-details='{{ country_data | tojson }}'>
         <div class="section-heading">
             <p class="eyebrow">Registration</p>
             <h2>Pick your country and dish</h2>
@@ -62,7 +90,7 @@
         <label for="country">Country to represent</label>
         <select id="country" name="country" required>
             <option value="">Choose a country</option>
-            {% for country in country_dishes %}
+            {% for country in country_data %}
                 <option value="{{ country }}">{{ country }}</option>
             {% endfor %}
         </select>
@@ -80,6 +108,15 @@
         <div class="section-heading">
             <p class="eyebrow">Country board</p>
             <h2 id="board-title">Choose a country to see dishes and teammates</h2>
+        </div>
+
+        <div class="country-preview empty-state" id="country-preview">
+            <img id="country-image" src="" alt="" loading="lazy" hidden>
+            <div>
+                <p class="eyebrow" id="country-spotlight">Featured Dish</p>
+                <h3 id="preview-title">Pick a country to preview the team style</h3>
+                <p id="preview-copy" class="country-meta">You will see the flag, featured dish, and who has already joined.</p>
+            </div>
         </div>
 
         <div class="info-block">

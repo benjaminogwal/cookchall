@@ -33,6 +33,31 @@
         <main>
             {% block content %}{% endblock %}
         </main>
+
+        <footer class="site-footer panel">
+            <div class="footer-brand">
+                <img
+                    class="footer-logo"
+                    src="{{ url_for('static', filename='campus-connect-vibes.svg') }}"
+                    alt="{{ organizer.name }} logo"
+                >
+                <div>
+                    <p class="eyebrow">Organizer</p>
+                    <strong>{{ organizer.name }}</strong>
+                    <p class="footer-copy">{{ organizer.message }}</p>
+                </div>
+            </div>
+            <div class="footer-credits">
+                <p class="eyebrow">Photo Credits</p>
+                <div class="credit-list">
+                    {% for credit in photo_credits %}
+                        <a href="{{ credit.source }}" target="_blank" rel="noreferrer">
+                            {{ credit.country }}: {{ credit.spotlight }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

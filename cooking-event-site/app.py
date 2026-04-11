@@ -66,6 +66,63 @@ COUNTRY_DISHES = {
     ],
 }
 
+COUNTRY_DETAILS = {
+    "Kenya": {
+        "flag": "🇰🇪",
+        "spotlight": "Nyama Choma",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyama%20Choma.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Nyama_Choma.jpg",
+        "image_credit": "Samuel Kiongo / Wikimedia Commons",
+        "image_alt": "Nyama choma grilling over charcoal",
+    },
+    "Germany": {
+        "flag": "🇩🇪",
+        "spotlight": "Schnitzel",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Schnitzel.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Schnitzel.JPG",
+        "image_credit": "Eikus89 / Wikimedia Commons",
+        "image_alt": "Schnitzel served with fries and lemon",
+    },
+    "Uganda": {
+        "flag": "🇺🇬",
+        "spotlight": "Luwombo",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Traditional%20Ugandan%20Luwombo.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Traditional_Ugandan_Luwombo.jpg",
+        "image_credit": "Nabunje Leticia / Wikimedia Commons",
+        "image_alt": "Traditional Ugandan luwombo wrapped in banana leaves",
+    },
+    "Nigeria": {
+        "flag": "🇳🇬",
+        "spotlight": "Jollof Rice",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jollof%20Rice.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Jollof_Rice.jpg",
+        "image_credit": "ChukaMadu / Wikimedia Commons",
+        "image_alt": "A plate of Nigerian jollof rice",
+    },
+    "Cameroon": {
+        "flag": "🇨🇲",
+        "spotlight": "Poulet DG",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Poulet%20DG.JPG",
+        "image_source": "https://commons.wikimedia.org/wiki/File:Poulet_DG.JPG",
+        "image_credit": "Affirebecca / Wikimedia Commons",
+        "image_alt": "Cameroonian poulet DG with plantain",
+    },
+    "Zimbabwe": {
+        "flag": "🇿🇼",
+        "spotlight": "Sadza with Beef Stew",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/A%20plate%20of%20sadza.jpg",
+        "image_source": "https://commons.wikimedia.org/wiki/File:A_plate_of_sadza.jpg",
+        "image_credit": "Tafadzwa Albert Mappurisa / Wikimedia Commons",
+        "image_alt": "A plate of Zimbabwean sadza with meat and vegetables",
+    },
+}
+
+ORGANIZER = {
+    "name": "Campus Connect Vibes Team",
+    "strapline": "Campus Connect cultural cook-off organizer",
+    "message": "Bringing students together through food, teamwork, and cultural pride.",
+}
+
 
 class Base(DeclarativeBase):
     pass
@@ -93,7 +150,6 @@ def normalize_database_url(database_url):
     return database_url
 
 
-
 def create_db_engine(database_url):
     engine_options = {"pool_pre_ping": True}
     if database_url.startswith("sqlite"):
@@ -107,6 +163,16 @@ def format_timestamp(value):
     if hasattr(value, "isoformat"):
         return value.isoformat(sep=" ", timespec="seconds")
     return str(value)
+
+
+def build_country_data():
+    return {
+        country: {
+            **COUNTRY_DETAILS[country],
+            "dishes": dishes,
+        }
+        for country, dishes in COUNTRY_DISHES.items()
+    }
 
 
 def create_app(test_config=None):
@@ -139,6 +205,7 @@ def create_app(test_config=None):
         bind=app.extensions["db_engine"],
         expire_on_commit=False,
     )
+    country_data = build_country_data()
 
     def get_db():
         if "db_session" not in g:
@@ -192,11 +259,27 @@ def create_app(test_config=None):
     with app.app_context():
         init_db()
 
+    @app.context_processor
+    def inject_site_data():
+        photo_credits = [
+            {
+                "country": country,
+                "spotlight": details["spotlight"],
+                "source": details["image_source"],
+                "credit": details["image_credit"],
+            }
+            for country, details in country_data.items()
+        ]
+        return {
+            "organizer": ORGANIZER,
+            "photo_credits": photo_credits,
+        }
+
     @app.route("/")
     def index():
         return render_template(
             "index.html",
-            country_dishes=COUNTRY_DISHES,
+            country_data=country_data,
             country_counts=get_country_counts(),
         )
 
@@ -252,6 +335,7 @@ def create_app(test_config=None):
             members=get_team_members(country),
             participant_name=session.get("participant_name"),
             dishes=COUNTRY_DISHES[country],
+            country_meta=country_data[country],
         )
 
     @app.route("/api/countries/<country>/members")
@@ -265,6 +349,10 @@ def create_app(test_config=None):
                 "country": country,
                 "count": len(members),
                 "dishes": COUNTRY_DISHES[country],
+                "flag": country_data[country]["flag"],
+                "image_url": country_data[country]["image_url"],
+                "image_alt": country_data[country]["image_alt"],
+                "spotlight": country_data[country]["spotlight"],
                 "members": [
                     {"name": member.name, "dish": member.dish}
                     for member in members
