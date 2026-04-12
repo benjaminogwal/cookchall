@@ -11,6 +11,9 @@
     </div>
     <div class="admin-actions">
         <a class="secondary-button" href="{{ url_for('admin_export') }}">Export CSV</a>
+        <form method="post" action="{{ url_for('admin_clear_registrations') }}" onsubmit="return confirm('Delete all registrations and reset every country count to zero?');">
+            <button class="danger-button" type="submit">Clear all entries</button>
+        </form>
         <a class="secondary-button" href="{{ url_for('admin_logout') }}">Log out</a>
     </div>
 </section>
@@ -31,27 +34,37 @@
         <h2>{{ registrations | length }} total registration{% if registrations|length != 1 %}s{% endif %}</h2>
     </div>
 
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Dish</th>
-                    <th>Created At</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for registration in registrations %}
+    {% if registrations %}
+        <div class="table-wrap">
+            <table>
+                <thead>
                     <tr>
-                        <td data-label="Name">{{ registration.name }}</td>
-                        <td data-label="Country">{{ registration.country }}</td>
-                        <td data-label="Dish">{{ registration.dish }}</td>
-                        <td data-label="Created At">{{ registration.created_at }}</td>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Dish</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for registration in registrations %}
+                        <tr>
+                            <td data-label="Name">{{ registration.name }}</td>
+                            <td data-label="Country">{{ registration.country }}</td>
+                            <td data-label="Dish">{{ registration.dish }}</td>
+                            <td data-label="Created At">{{ registration.created_at }}</td>
+                            <td data-label="Actions">
+                                <form method="post" action="{{ url_for('admin_delete_registration', registration_id=registration.id) }}" onsubmit="return confirm('Delete this registration entry?');">
+                                    <button class="danger-button danger-button-small" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="empty-note">No registrations are stored right now.</p>
+    {% endif %}
 </section>
 {% endblock %}

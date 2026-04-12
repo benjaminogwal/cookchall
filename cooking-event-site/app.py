@@ -16,7 +16,7 @@ from flask import (
     session,
     url_for,
 )
-from sqlalchemy import DateTime, Integer, String, create_engine, func, select
+from sqlalchemy import DateTime, Integer, String, create_engine, delete, func, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -590,6 +590,37 @@ def create_app(test_config=None):
             registrations=registrations,
             country_counts=get_country_counts(),
         )
+
+    @app.route("/admin/delete/<int:registration_id>", methods=["POST"])
+    @admin_required
+    def admin_delete_registration(registration_id):
+        db = get_db()
+        registration = db.get(Registration, registration_id)
+
+        if registration is None:
+            flash("That registration entry no longer exists.", "error")
+            return redirect(url_for("admin_dashboard"))
+
+        deleted_name = registration.name
+        deleted_country = registration.country
+        db.delete(registration)
+        db.commit()
+        flash(f"Deleted {deleted_name} from Team {deleted_country}.", "success")
+        return redirect(url_for("admin_dashboard"))
+
+    @app.route("/admin/clear", methods=["POST"])
+    @admin_required
+    def admin_clear_registrations():
+        db = get_db()
+        result = db.execute(delete(Registration))
+        db.commit()
+        deleted_total = result.rowcount or 0
+
+        if deleted_total == 0:
+            flash("There were no registrations to delete.", "error")
+        else:
+            flash(f"Deleted all {deleted_total} registration entries.", "success")
+        return redirect(url_for("admin_dashboard"))
 
     @app.route("/admin/export.csv")
     @admin_required

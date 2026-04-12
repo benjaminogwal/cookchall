@@ -120,6 +120,33 @@ h3 {
     transform: translateY(-2px);
 }
 
+.danger-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border: 1px solid rgba(123, 39, 16, 0.18);
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 700;
+    color: #fff7ed;
+    background: linear-gradient(135deg, #9a2e16, #6e1e0b);
+    cursor: pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    box-shadow: 0 10px 22px rgba(123, 39, 16, 0.18);
+}
+
+.danger-button:hover {
+    transform: translateY(-2px);
+}
+
+.danger-button-small {
+    min-height: 40px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.92rem;
+}
+
 .panel {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -691,6 +718,7 @@ td {
     text-align: left;
     padding: 0.9rem 0.7rem;
     border-bottom: 1px solid rgba(47, 31, 25, 0.1);
+    vertical-align: middle;
 }
 
 th {
@@ -702,6 +730,11 @@ th {
 
 .compact {
     padding: 1rem;
+}
+
+.empty-note {
+    margin: 0.6rem 0 0;
+    color: var(--muted);
 }
 
 .site-footer {
