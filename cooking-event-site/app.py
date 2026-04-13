@@ -23,13 +23,6 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 COUNTRY_DISHES = {
-    "Kenya": [
-        "Nyama Choma",
-        "Githeri",
-        "Sukuma Wiki",
-        "Mukimo",
-        "Kenyan Pilau",
-    ],
     "Germany": [
         "Sauerbraten",
         "Schnitzel",
@@ -51,13 +44,6 @@ COUNTRY_DISHES = {
         "Pounded Yam and Ogbono Soup",
         "Moi Moi",
     ],
-    "Cameroon": [
-        "Ndole",
-        "Eru",
-        "Koki Beans",
-        "Poulet DG",
-        "Achu Soup",
-    ],
     "Zimbabwe": [
         "Sadza with Beef Stew",
         "Dovi",
@@ -68,15 +54,6 @@ COUNTRY_DISHES = {
 }
 
 COUNTRY_DETAILS = {
-    "Kenya": {
-        "flag_url": "https://flagcdn.com/ke.svg",
-        "flag_alt": "Flag of Kenya",
-        "spotlight": "Nyama Choma",
-        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyama%20Choma.jpg",
-        "image_source": "https://commons.wikimedia.org/wiki/File:Nyama_Choma.jpg",
-        "image_credit": "Samuel Kiongo / Wikimedia Commons",
-        "image_alt": "Nyama choma grilling over charcoal",
-    },
     "Germany": {
         "flag_url": "https://flagcdn.com/de.svg",
         "flag_alt": "Flag of Germany",
@@ -103,15 +80,6 @@ COUNTRY_DETAILS = {
         "image_source": "https://commons.wikimedia.org/wiki/File:Jollof_Rice.jpg",
         "image_credit": "ChukaMadu / Wikimedia Commons",
         "image_alt": "A plate of Nigerian jollof rice",
-    },
-    "Cameroon": {
-        "flag_url": "https://flagcdn.com/cm.svg",
-        "flag_alt": "Flag of Cameroon",
-        "spotlight": "Poulet DG",
-        "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Poulet%20DG.JPG",
-        "image_source": "https://commons.wikimedia.org/wiki/File:Poulet_DG.JPG",
-        "image_credit": "Affirebecca / Wikimedia Commons",
-        "image_alt": "Cameroonian poulet DG with plantain",
     },
     "Zimbabwe": {
         "flag_url": "https://flagcdn.com/zw.svg",
@@ -425,7 +393,8 @@ def create_app(test_config=None):
             )
         ).all()
         for row in rows:
-            counts[row.country] = row.total
+            if row.country in counts:
+                counts[row.country] = row.total
         return counts
 
     def get_team_members(country):
