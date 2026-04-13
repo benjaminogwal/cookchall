@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>World Cooking Challenge</title>
+    <title>{{ site_title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <header class="site-header">
             <a class="brand" href="{{ url_for('index') }}">
                 <span class="brand-mark">Taste the World</span>
-                <span class="brand-subtitle">Cooking Competition Registration</span>
+                <span class="brand-subtitle">Cultural Cookout Registration</span>
             </a>
             <nav class="site-nav">
                 <a href="{{ url_for('index') }}">Register</a>

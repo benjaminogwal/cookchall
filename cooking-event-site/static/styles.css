@@ -584,6 +584,55 @@ select:focus {
     margin-bottom: 0.8rem;
 }
 
+.share-block {
+    padding: 1rem;
+    border-radius: 22px;
+    background: rgba(255, 247, 237, 0.82);
+    border: 1px solid rgba(181, 63, 29, 0.12);
+}
+
+.share-block .eyebrow {
+    margin-bottom: 0.45rem;
+}
+
+.share-block h3 {
+    margin: 0 0 0.85rem;
+}
+
+.qr-card {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+}
+
+.qr-code-image {
+    width: 130px;
+    height: 130px;
+    padding: 0.5rem;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(47, 31, 25, 0.08);
+}
+
+.qr-copy {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.qr-copy p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.share-link {
+    color: var(--accent-dark);
+    font-weight: 700;
+    word-break: break-word;
+    text-decoration: none;
+}
+
 .plain-list,
 .team-list {
     list-style: none;
@@ -816,6 +865,15 @@ th {
     .site-nav,
     .admin-actions {
         justify-content: flex-start;
+    }
+
+    .qr-card {
+        grid-template-columns: 1fr;
+    }
+
+    .qr-code-image {
+        width: 150px;
+        height: 150px;
     }
 }
 

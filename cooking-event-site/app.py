@@ -3,6 +3,7 @@ import io
 import os
 from datetime import datetime
 from functools import wraps
+from urllib.parse import quote
 
 from flask import (
     Flask,
@@ -296,8 +297,8 @@ DISH_DETAILS = {
 
 ORGANIZER = {
     "name": "Campus Connect Vibes Team",
-    "strapline": "Campus Connect cultural cook-off organizer",
-    "message": "Bringing students together through food, teamwork, and cultural pride.",
+    "strapline": "Campus Connect cultural cookout host",
+    "message": "Bringing students together to share food, stories, and culture in a friendly cookout.",
 }
 
 
@@ -340,6 +341,13 @@ def format_timestamp(value):
     if hasattr(value, "isoformat"):
         return value.isoformat(sep=" ", timespec="seconds")
     return str(value)
+
+
+def build_qr_code_url(share_url):
+    return (
+        "https://api.qrserver.com/v1/create-qr-code/"
+        f"?size=280x280&format=svg&data={quote(share_url, safe='')}"
+    )
 
 
 def build_dish_card(country, dish):
@@ -450,6 +458,7 @@ def create_app(test_config=None):
 
     @app.context_processor
     def inject_site_data():
+        share_url = url_for("index", _external=True)
         photo_credits = [
             {
                 "country": country,
@@ -462,6 +471,9 @@ def create_app(test_config=None):
         return {
             "organizer": ORGANIZER,
             "photo_credits": photo_credits,
+            "site_title": "Taste the World Cookout",
+            "share_url": share_url,
+            "qr_code_url": build_qr_code_url(share_url),
         }
 
     @app.route("/")
@@ -508,7 +520,7 @@ def create_app(test_config=None):
 
         session["team_country"] = country
         session["participant_name"] = name
-        flash(f"You joined Team {country}. Coordinate with your teammates below.", "success")
+        flash(f"You joined Team {country}. Coordinate with your teammates for the cookout below.", "success")
         return redirect(url_for("team"))
 
     @app.route("/team")

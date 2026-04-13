@@ -23,14 +23,14 @@
 <section class="hero panel">
     <div>
         <p class="eyebrow">Global food, shared teams</p>
-        <h1>Join a country team and claim a dish for the competition.</h1>
+        <h1>Join a country team and choose a dish for the cultural cookout.</h1>
         <p class="hero-copy">
-            Participants representing the same country are grouped together, so each team can coordinate dishes before event day.
+            Participants representing the same country are grouped together so they can plan together, share culture, and enjoy a friendly cookout on event day.
         </p>
     </div>
     <div class="hero-badge">
         <span>6 countries</span>
-        <strong>1 Campus Connect cook-off</strong>
+        <strong>1 Campus Connect cultural cookout</strong>
     </div>
 </section>
 
@@ -106,10 +106,10 @@
             <div id="dish-picker" class="dish-picker empty-state" aria-live="polite">
                 <p class="dish-picker-empty">Select a country first to load the dish choices.</p>
             </div>
-            <p class="field-error" id="dish-error" hidden>Please choose one dish before joining the competition.</p>
+            <p class="field-error" id="dish-error" hidden>Please choose one dish before joining the cookout.</p>
         </div>
 
-        <button class="primary-button" type="submit">Join the competition</button>
+        <button class="primary-button" type="submit">Join the cookout</button>
     </form>
 
     <aside class="panel info-panel">
@@ -134,6 +134,18 @@
             <ul id="member-list" class="plain-list empty-state" aria-live="polite">
                 <li>No country selected yet.</li>
             </ul>
+        </div>
+
+        <div class="info-block share-block">
+            <p class="eyebrow">Share The Site</p>
+            <h3>Scan to open the cookout page</h3>
+            <div class="qr-card">
+                <img class="qr-code-image" src="{{ qr_code_url }}" alt="QR code linking to the cookout website">
+                <div class="qr-copy">
+                    <p>Use this QR code on a phone, poster, or laptop screen to open the registration page directly.</p>
+                    <a class="share-link" href="{{ share_url }}" target="_blank" rel="noreferrer">{{ share_url }}</a>
+                </div>
+            </div>
         </div>
     </aside>
 </section>

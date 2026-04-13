@@ -33,7 +33,7 @@ if (form) {
 
     countryImage.addEventListener("error", () => {
         hidePreviewImage();
-        previewCopy.textContent = "Image preview unavailable right now, but the team board and dish list still work.";
+        previewCopy.textContent = "Image preview unavailable right now, but the cookout group board and dish list still work.";
     });
 
     const selectDish = (dishName) => {
@@ -111,8 +111,8 @@ if (form) {
             countryPreview.classList.add("empty-state");
             hidePreviewImage();
             countrySpotlight.textContent = "Featured Dish";
-            previewTitle.textContent = "Pick a country to preview the team style";
-            previewCopy.textContent = "You will see the flag, featured dish, and who has already joined.";
+            previewTitle.textContent = "Pick a country to preview the cookout group";
+            previewCopy.textContent = "You will see the flag, featured dish, and who has already joined that country group.";
             return;
         }
 
@@ -123,7 +123,7 @@ if (form) {
         countryImage.alt = details.image_alt;
         countrySpotlight.textContent = "Featured Dish";
         previewTitle.textContent = `${country} spotlight: ${details.spotlight}`;
-        previewCopy.textContent = "Choose this country to join the shared team board and coordinate dishes together.";
+        previewCopy.textContent = "Choose this country to join the shared group board and coordinate dishes together for the cookout.";
     };
 
     const renderMembers = async (country) => {
