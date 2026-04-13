@@ -463,6 +463,7 @@ def create_app(test_config=None):
         name = request.form.get("name", "").strip()
         country = request.form.get("country", "").strip()
         dish = request.form.get("dish", "").strip()
+        custom_dish = request.form.get("custom_dish", "").strip()
 
         if not name:
             flash("Please enter your name.", "error")
@@ -473,7 +474,15 @@ def create_app(test_config=None):
         if country not in COUNTRY_DISHES:
             flash("Please choose one of the listed countries.", "error")
             return redirect(url_for("index"))
-        if dish not in COUNTRY_DISHES[country]:
+        if custom_dish and len(custom_dish) > 120:
+            flash("Custom dish names should be 120 characters or less.", "error")
+            return redirect(url_for("index"))
+
+        final_dish = custom_dish or dish
+        if not final_dish:
+            flash("Choose a dish from the list or enter your own dish.", "error")
+            return redirect(url_for("index"))
+        if not custom_dish and dish not in COUNTRY_DISHES[country]:
             flash("Please choose a valid dish for your country.", "error")
             return redirect(url_for("index"))
 
@@ -482,7 +491,7 @@ def create_app(test_config=None):
             Registration(
                 name=name,
                 country=country,
-                dish=dish,
+                dish=final_dish,
             )
         )
         db.commit()

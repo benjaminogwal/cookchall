@@ -100,13 +100,24 @@
         <div class="dish-picker-section">
             <div class="dish-picker-head">
                 <label for="dish">Dish to prepare</label>
-                <p class="field-hint">Tap a food card to choose what your team will prepare.</p>
+                <p class="field-hint">Tap a food card to choose what your team will prepare, or enter your own dish below if it is not listed.</p>
             </div>
             <input id="dish" name="dish" type="hidden" value="">
             <div id="dish-picker" class="dish-picker empty-state" aria-live="polite">
                 <p class="dish-picker-empty">Select a country first to load the dish choices.</p>
             </div>
-            <p class="field-error" id="dish-error" hidden>Please choose one dish before joining the cookout.</p>
+            <div class="custom-dish-block">
+                <label for="custom-dish">Dish not listed?</label>
+                <input
+                    id="custom-dish"
+                    name="custom_dish"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Enter the dish you would like to cook"
+                >
+                <p class="field-hint">Optional. If you type a custom dish here, it will be used for your registration.</p>
+            </div>
+            <p class="field-error" id="dish-error" hidden>Please choose a dish or enter your own dish before joining the cookout.</p>
         </div>
 
         <button class="primary-button" type="submit">Join the cookout</button>

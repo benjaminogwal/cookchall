@@ -4,6 +4,7 @@ if (form) {
     const countryDetails = JSON.parse(form.dataset.countryDetails);
     const countryField = document.getElementById("country");
     const dishField = document.getElementById("dish");
+    const customDishField = document.getElementById("custom-dish");
     const dishPicker = document.getElementById("dish-picker");
     const dishError = document.getElementById("dish-error");
     const memberList = document.getElementById("member-list");
@@ -38,6 +39,7 @@ if (form) {
 
     const selectDish = (dishName) => {
         dishField.value = dishName;
+        customDishField.value = "";
         clearDishError();
         dishPicker.querySelectorAll(".dish-card").forEach((card) => {
             card.classList.toggle("is-selected", card.dataset.dishName === dishName);
@@ -179,14 +181,26 @@ if (form) {
     countryField.addEventListener("change", async (event) => {
         const country = event.target.value;
         boardTitle.textContent = country ? `${country} team board` : "Choose a country to see dishes and teammates";
+        customDishField.value = "";
         clearDishError();
         renderDishPicker(country);
         renderPreview(country);
         await renderMembers(country);
     });
 
+    customDishField.addEventListener("input", () => {
+        if (customDishField.value.trim()) {
+            dishField.value = "";
+            dishPicker.querySelectorAll(".dish-card").forEach((card) => {
+                card.classList.remove("is-selected");
+                card.setAttribute("aria-pressed", "false");
+            });
+        }
+        clearDishError();
+    });
+
     form.addEventListener("submit", (event) => {
-        if (!dishField.value) {
+        if (!dishField.value && !customDishField.value.trim()) {
             event.preventDefault();
             dishError.hidden = false;
             dishPicker.scrollIntoView({ behavior: "smooth", block: "center" });

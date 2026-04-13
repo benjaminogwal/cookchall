@@ -443,6 +443,12 @@ h3 {
     font-weight: 700;
 }
 
+.custom-dish-block {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(181, 63, 29, 0.18);
+}
+
 .country-preview {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
